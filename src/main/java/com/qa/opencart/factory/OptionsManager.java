@@ -19,12 +19,14 @@ public class OptionsManager {
 	
 	public ChromeOptions getChromeOptions() {
 		co = new ChromeOptions();
+		co.addArguments("--remote-allow-origins=*");
 		//if(prop.getProperty("headless").trim().equalsIgnoreCase("true"))
 		
 		if(Boolean.parseBoolean(prop.getProperty("headless").trim())) {
 			System.out.println("===============  Running chrome in headless ========");
 			co.addArguments("--headless");
 		}
+		
 		if(Boolean.parseBoolean(prop.getProperty("incognito").trim())) co.addArguments("--incognito");
 		return co;
 		
