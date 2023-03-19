@@ -25,27 +25,5 @@
 	</test>
 	
 
-	<test name="Accounts Page test">
-		<classes>
-			<class name="com.qa.opencart.tests.AccountsPageTest" />
-		</classes>
-	</test>
-	 
-	
-	
-	
-<!-- 
-	<test name="Product Info Page test">
-		<classes>
-			<class name="com.qa.opencart.tests.ProductInfoPageTest" />
-		</classes>
-	</test>
-	
-	<test name="Register Page test">
-		<classes>
-			<class name="com.qa.opencart.tests.RegisterPageTest" />
-		</classes>
-	</test>
--->
 
 </suite>
