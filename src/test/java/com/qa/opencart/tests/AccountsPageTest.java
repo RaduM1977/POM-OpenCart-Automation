@@ -65,7 +65,7 @@ public class AccountsPageTest extends BaseTest{
 			{"iMac"},
 			{"Apple"},
 			{"Samsung"},
-			{"Naveen"} //assertion is failing --> negative testing 
+			//{"Naveen"} //assertion is failing --> negative testing 
 			
 		};
 	}

@@ -20,6 +20,13 @@ public class OptionsManager {
 	public ChromeOptions getChromeOptions() {
 		co = new ChromeOptions();
 		co.addArguments("--remote-allow-origins=*");
+		
+//		co.addArguments("--no-sandbox");
+//		co.addArguments("--disable-dev-shm-usage");
+//		co.addArguments("--no-sandbox");
+//		co.setBinary("/path/to/chrome/binary");
+
+		
 		//if(prop.getProperty("headless").trim().equalsIgnoreCase("true"))
 		
 		if(Boolean.parseBoolean(prop.getProperty("headless").trim())) {
@@ -27,22 +34,28 @@ public class OptionsManager {
 			co.addArguments("--headless");
 		}
 		
-		if(Boolean.parseBoolean(prop.getProperty("incognito").trim())) co.addArguments("--incognito");
+		if(Boolean.parseBoolean(prop.getProperty("incognito").trim()))
+			co.addArguments("--incognito");
 		return co;
 		
 	}
 	
 	public FirefoxOptions getFirefoxOptions() {
 		fo = new FirefoxOptions();
-		if(Boolean.parseBoolean(prop.getProperty("headless").trim())) fo.addArguments("--headless");
-		if(Boolean.parseBoolean(prop.getProperty("incognito").trim())) fo.addArguments("--incognito");
+		if(Boolean.parseBoolean(prop.getProperty("headless").trim()))
+			fo.addArguments("--headless");
+		if(Boolean.parseBoolean(prop.getProperty("incognito").trim()))
+			fo.addArguments("--incognito");
 		return fo;
 	}
 	
 	public EdgeOptions getEdgeOptions() {
 		eo = new EdgeOptions();
-		if(Boolean.parseBoolean(prop.getProperty("headless").trim())) eo.addArguments("--headless");
-		if(Boolean.parseBoolean(prop.getProperty("incognito").trim())) eo.addArguments("--incognito");
+		//eo.addArguments("--remote-allow-origins=*");
+		if(Boolean.parseBoolean(prop.getProperty("headless").trim()))
+			eo.addArguments("--headless");
+		if(Boolean.parseBoolean(prop.getProperty("incognito").trim())) 
+			eo.addArguments("--incognito");
 		return eo;
 	}
 	

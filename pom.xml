@@ -9,6 +9,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		
 		<extentreports-version>5.0.8</extentreports-version>
 		<aspectj.version>1.9.5</aspectj.version>
 	</properties>
@@ -119,6 +120,7 @@
 					<forkCount>3</forkCount>
 					<reuseForks>true</reuseForks>
 					<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+					
 					<suiteXmlFiles>
 <!--				<suiteXmlFile>src/test/resources/testRunners/testng_regression.xml</suiteXmlFile>  -->
 					<suiteXmlFile>${suiteXmlFile}</suiteXmlFile> 

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
 import org.aspectj.util.FileUtil;
@@ -14,6 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import com.qa.opencart.exception.FrameworkException;
@@ -47,36 +50,67 @@ public class DriverFactory {
 		
 		//You can pass the browser from the command line(terminal)
 		//String browserName = System.getProperty("browser");
+		
 		System.out.println("browser name is: " + browserName);
 		
+		//chrome
 		if(browserName.equalsIgnoreCase("chrome")) {
+			// check if remote or local
+			if(Boolean.parseBoolean(prop.getProperty("remote"))){
+				//run on remote/grid:
+				init_remoteDriver("chrome");
+				
+			}else {
+				//local execution
 			
-			//we run the driver with the options ex: headless or incognito if they are true or if false runs without 
-			//driver = new ChromeDriver(optionsManager.getChromeOptions());	
-			
-			//initialize the driver  with ThreadSafe
-			tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
+				//we run the driver with the options ex: headless or incognito if they are true or if false runs without 
+				//driver = new ChromeDriver(optionsManager.getChromeOptions());	
+				
+				//initialize the driver with ThreadSafe
+				tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
+			}
+				
 			
 		}
+		//firefox
 		else if(browserName.equalsIgnoreCase("firefox")) {
+			// check if remote or local
+			if(Boolean.parseBoolean(prop.getProperty("remote"))){
+				//run on remote/grid:
+				init_remoteDriver("firefox");
+				
+			}else {
+				//local execution
 			
-			//driver = new FirefoxDriver(optionsManager.getFirefoxOptions());
-			tlDriver.set(new FirefoxDriver(optionsManager.getFirefoxOptions()));
-			
+				//driver = new FirefoxDriver(optionsManager.getFirefoxOptions());
+				//initialize the driver  with ThreadSafe
+				tlDriver.set(new FirefoxDriver(optionsManager.getFirefoxOptions()));
+			}
 			
 		}
+		//safari
 		else if(browserName.equalsIgnoreCase("safari")) {
-			//driver = new SafariDriver();
+			//safari can not be run on Docker
 			
+			//driver = new SafariDriver();
 			//initialize the driver  with ThreadSafe
 			tlDriver.set(new SafariDriver());
 			
 		}
+		//edge
 		else if(browserName.equalsIgnoreCase("edge")) {
-			//driver = new EdgeDriver(optionsManager.getEdgeOptions());
+			// check if remote or local
+			if(Boolean.parseBoolean(prop.getProperty("remote"))){
+				//run on remote/grid:
+				init_remoteDriver("edge");
+				
+			}else {
+				//local execution
 			
-			//initialize the driver  with ThreadSafe
-			tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
+				//driver = new EdgeDriver(optionsManager.getEdgeOptions());
+				//initialize the driver  with ThreadSafe
+				tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
+			}
 			
 		}
 		else {
@@ -91,6 +125,42 @@ public class DriverFactory {
 		return getDriver();
 		
 	}
+	
+	
+	/**
+	 * this method is called internally to initialize the driver with RemoteWebDriver
+	 * @param browser
+	 */
+	private void init_remoteDriver(String browser) {
+		
+		System.out.println("running test on grid server::: "+browser);
+		
+	try {
+		switch (browser.toLowerCase()) {
+		case "chrome": //the hub URL in the RemoteWebDriver object 
+			tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")),optionsManager.getChromeOptions()));
+		break;
+			
+		case "firefox":
+			tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")),optionsManager.getFirefoxOptions()));
+		break;
+			
+		case "edge":
+			tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")),optionsManager.getEdgeOptions()));
+		break;	
+			
+		default:
+			System.out.println("plz pass the right browser for remote execution..." + browser);
+			throw new FrameworkException("NOREMOTEBROWSEREXCEPTION");
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		 
+	}
+	
+	
+	
 	/*
 	 * get the local thread copy of the driver,
 	 * synchronized so each driver will get their own respective copy 
