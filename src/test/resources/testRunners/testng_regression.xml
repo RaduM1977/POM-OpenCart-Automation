@@ -33,30 +33,48 @@
 	 
 <!-- running the test on remote in parallel -->	 
 
-	<test name="Login Page Test_chrome"> 
+	<test name="Login Page Test_chrome_90.0"> 
 		<parameter name="browser" value="chrome" />
+		<parameter name="browserversion" value="90.0" />
+		<parameter name="testcasename" value="Login Page Test" />
 		
 		<classes>
 			<class name="com.qa.opencart.tests.LoginPageTest" />
 		</classes>
 	</test>
 	
-
-	<test name="Accounts Page Test_firefox"> 
-		<parameter name="browser" value="firefox" />
+	<test name="Login Page Test_chrome_109.0"> 
+		<parameter name="browser" value="chrome" />
+		<parameter name="browserversion" value="109.0" />
+		<parameter name="testcasename" value="Login Page Test" />
 		
+		<classes>
+			<class name="com.qa.opencart.tests.LoginPageTest" />
+		</classes>
+	</test>
+
+<!-- acounts page test -->
+	<test name="Accounts Page Test_chrome_79.0"> 
+		<parameter name="browser" value="chrome" />
+		<parameter name="browserversion" value="79.0" />
+		<parameter name="testcasename" value="Accounts Page Test" />
+		
+
 		<classes>
 			<class name="com.qa.opencart.tests.AccountsPageTest" />
 		</classes>
 	</test>
 	
-	<test name="Accounts Page Test_edge"> 
+	
+	
+	
+<!-- <test name="Accounts Page Test_edge"> 
 		<parameter name="browser" value="edge" />
 		
 		<classes>
 			<class name="com.qa.opencart.tests.AccountsPageTest" />
 		</classes>
-	</test>
+	</test>  -->
 	
 	
 <!-- 

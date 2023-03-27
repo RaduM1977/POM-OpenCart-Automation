@@ -20,11 +20,13 @@ public class OptionsManager {
 	public ChromeOptions getChromeOptions() {
 		co = new ChromeOptions();
 		co.addArguments("--remote-allow-origins=*");
-		
-//		co.addArguments("--no-sandbox");
-//		co.addArguments("--disable-dev-shm-usage");
-//		co.addArguments("--no-sandbox");
-//		co.setBinary("/path/to/chrome/binary");
+			
+		if(Boolean.parseBoolean(prop.getProperty("remote"))){
+			co.setBrowserVersion(prop.getProperty("browserversion"));
+			co.setCapability("browsername","chrome");
+			co.setCapability("enableVNC", true);
+			co.setCapability("name", prop.getProperty("testcasename"));
+		}
 
 		
 		//if(prop.getProperty("headless").trim().equalsIgnoreCase("true"))
